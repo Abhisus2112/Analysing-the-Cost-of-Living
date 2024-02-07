@@ -1,0 +1,101 @@
+import warnings
+warnings.filterwarnings('ignore')
+import pandas as pd
+import numpy as np
+
+df = pd.read_csv("D:\\Mentorness Internship DA\\Project 3\\cost-of-living.csv", encoding = 'latin')
+
+def food(df):
+    
+    return (df[['Meal, Inexpensive Restaurant (USD)',
+       'Meal for 2 People, Mid-range Restaurant, Three-course (USD)',
+       'McMeal at McDonalds (or Equivalent Combo Meal) (USD)',
+       'Domestic Beer (0.5 liter draught, in restaurants) (USD)',
+       'Imported Beer (0.33 liter bottle, in restaurants) (USD)',
+       'Cappuccino (regular, in restaurants) (USD)',
+       'Coke/Pepsi (0.33 liter bottle, in restaurants) (USD)',
+       'Water (0.33 liter bottle, in restaurants) (USD)']].mean())
+
+
+def grocery(df):
+    return (df[['Milk (regular), (1 liter) (USD)',
+       'Loaf of Fresh White Bread (500g) (USD)', 'Rice (white), (1kg) (USD)',
+       'Eggs (regular) (12) (USD)', 'Local Cheese (1kg) (USD)',
+       'Chicken Fillets (1kg) (USD)',
+       'Beef Round (1kg) (or Equivalent Back Leg Red Meat) (USD)',
+       'Apples (1kg) (USD)', 'Banana (1kg) (USD)', 'Oranges (1kg) (USD)',
+       'Tomato (1kg) (USD)', 'Potato (1kg) (USD)', 'Onion (1kg) (USD)',
+       'Lettuce (1 head) (USD)',
+       'Water (1.5 liter bottle, at the market) (USD)',
+       'Bottle of Wine (Mid-Range, at the market) (USD)',
+       'Domestic Beer (0.5 liter bottle, at the market) (USD)',
+       'Imported Beer (0.33 liter bottle, at the market) (USD)','Cigarettes 20 Pack (Marlboro) (USD)']].mean())
+
+
+
+def travel(df):
+    
+    return (df[['One-way Ticket (Local Transport) (USD)',
+       'Monthly Pass (Regular Price) (USD)',
+       'Taxi Start (Normal Tariff) (USD)', 'Taxi 1km (Normal Tariff) (USD)',
+       'Taxi 1hour Waiting (Normal Tariff) (USD)', 'Gasoline (1 liter) (USD)']].mean())
+
+def entertainment(df):
+    
+    return (df[['1 min. of Prepaid Mobile Tariff Local (No Discounts or Plans) (USD)',
+       'Internet (60 Mbps or More, Unlimited Data, Cable/ADSL) (USD)',
+       'Fitness Club, Monthly Fee for 1 Adult (USD)',
+       'Tennis Court Rent (1 Hour on Weekend) (USD)',
+       'Cinema, International Release, 1 Seat (USD)',
+        'Volkswagen Golf 1.4 90 KW Trendline (Or Equivalent New Car) (USD)',
+       'Toyota Corolla Sedan 1.6l 97kW Comfort (Or Equivalent New Car) (USD)']].mean())
+
+def child_education(df):
+    
+    return (df[['Preschool (or Kindergarten), Full Day, Private, Monthly for 1 Child (USD)',
+       'International Primary School, Yearly for 1 Child (USD)']].mean())
+
+
+def outfit(df):
+    
+    return (df[['1 Pair of Jeans (Levis 501 Or Similar) (USD)',
+       '1 Summer Dress in a Chain Store (Zara, H&M) (USD)',
+       '1 Pair of Nike Running Shoes (Mid-Range) (USD)',
+       '1 Pair of Men Leather Business Shoes (USD)']].mean())
+
+
+
+def living(df):
+    
+    return (df[['Apartment (1 bedroom) in City Centre (USD)',
+       'Apartment (1 bedroom) Outside of Centre (USD)',
+       'Apartment (3 bedrooms) in City Centre (USD)',
+       'Apartment (3 bedrooms) Outside of Centre (USD)',
+       'Price per Square Meter to Buy Apartment in City Centre (USD)',
+       'Price per Square Meter to Buy Apartment Outside of Centre (USD)',
+        'Basic (Electricity, Heating, Cooling, Water, Garbage) for 85m2 Apartment (USD)']].mean())
+
+
+def income(df):
+    
+    return (df[['Average Monthly Net Salary (After Tax) (USD)',
+       'Mortgage Interest Rate in Percentages (%), Yearly, for 20 Years Fixed-Rate']].mean())
+
+
+df['Resturant'] = df.apply(food, axis = 1)
+df['Grocery'] = df.apply(grocery, axis = 1)
+df['Travel'] = df.apply(travel, axis = 1)
+df['Entertainment'] = df.apply(entertainment, axis = 1)
+df['Child_education'] = df.apply(child_education, axis = 1)
+df['Outfit'] = df.apply(outfit, axis = 1)
+df['Living'] = df.apply(living, axis = 1)
+df['Income'] = df.apply(income, axis = 1)
+
+
+df1 = df[['city','country','Resturant','Grocery','Travel','Entertainment','Child_education','Outfit','Living','Income','data_quality']]
+
+for i in df1.columns:
+    print(i)
+    df1[i].fillna(value = 0, inplace = True)
+
+df1
